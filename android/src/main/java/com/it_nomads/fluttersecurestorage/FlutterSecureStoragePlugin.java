@@ -48,21 +48,25 @@ public class FlutterSecureStoragePlugin implements MethodCallHandler, FlutterPlu
 
     public void initInstance(BinaryMessenger messenger, Context context) {
       try {
-          applicationContext = context.getApplicationContext();
-          preferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-          charset = Charset.forName("UTF-8");
+          initProperties(context);
 
           workerThread = new HandlerThread("com.it_nomads.fluttersecurestorage.worker");
           workerThread.start();
           workerThreadHandler = new Handler(workerThread.getLooper());
-
-          StorageCipher18Implementation.moveSecretFromPreferencesIfNeeded(preferences, context);
 
           channel = new MethodChannel(messenger, "plugins.it_nomads.com/flutter_secure_storage");
           channel.setMethodCallHandler(this);
       } catch (Exception e) {
           Log.e("FlutterSecureStoragePl", "Registration failed", e);
       }
+    }
+
+    public void initProperties(Context context) {
+        applicationContext = context.getApplicationContext();
+        preferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        charset = Charset.forName("UTF-8");
+
+        StorageCipher18Implementation.moveSecretFromPreferencesIfNeeded(preferences, context);
     }
 
     private void ensureInitStorageCipher() {
