@@ -137,7 +137,7 @@ public class FlutterSecureStoragePlugin implements MethodCallHandler, FlutterPlu
         editor.commit();
     }
 
-    private String read(String key) throws Exception {
+    public String read(String key) throws Exception {
         String encoded = preferences.getString(key, null);
 
         return decodeRawValue(encoded);
