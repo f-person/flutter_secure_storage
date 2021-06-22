@@ -154,7 +154,7 @@ public class FlutterSecureStoragePlugin implements MethodCallHandler, FlutterPlu
         editor.commit();
     }
 
-    private String addPrefixToKey(String key) {
+    public String addPrefixToKey(String key) {
         return ELEMENT_PREFERENCES_KEY_PREFIX + "_" + key;
     }
 
