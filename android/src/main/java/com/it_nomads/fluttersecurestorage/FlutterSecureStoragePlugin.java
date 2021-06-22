@@ -69,7 +69,7 @@ public class FlutterSecureStoragePlugin implements MethodCallHandler, FlutterPlu
         charset = Charset.forName("UTF-8");
     }
 
-    private void ensureInitStorageCipher() {
+    public void ensureInitStorageCipher() {
         if (storageCipher == null) {
             try {
                 Log.d("FlutterSecureStoragePl", "Initializing StorageCipher");
